@@ -1,0 +1,38 @@
+# azure account setup
+
+* az login
+* az account list
+* az account set --subscription <id>
+
+
+#docker setup
+
+* az acr login -n <container registry name> --subscription <id>
+* docker images
+* always change the image name with the current version. We cant push the image like this. Because naming has to be proper
+* format of the image is: "registry/repository:version" --> acr/mypythonapp:1   {acr repo refer to login server in azure}
+* give a tag to the docker image for uniquesness--> docker tag <present image name>:<tag> <acr repo/new registory name>:version
+* push the image into azure cingainer registory --> docker push <image name>
+* everytime we push an image it will get updated over there
+
+
+# kubernetes setup
+
+* az aks get-credentials --name <kubernetes cluster name> --resource-group <resource group name>
+  Above command will copy the config file from azure account to your local machine
+* kubectl get nodes   {for this you have to install kubernetes cli}
+* To deploy image --> we have yml file for that
+
+
+# Deployment command
+
+* kubectl create -f azure-aks.yaml
+* above command will create the resources define in the file.
+* kubectl get all. This command will show all the resources
+
+
+# Deleting Pod, Services & Deployment
+
+* kubectl delete pods <pod name> --grace-period=0 --force
+* kubectl delete deployment <service name>
+* kubectl delete services <deployment name>
